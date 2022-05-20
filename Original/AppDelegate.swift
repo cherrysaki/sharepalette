@@ -9,6 +9,7 @@ import UIKit
 import Firebase
 import GoogleMaps
 
+//commitする！
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
