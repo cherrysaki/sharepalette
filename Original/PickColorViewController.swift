@@ -6,8 +6,9 @@
 //
 
 import UIKit
+import CoreLocation
 
-class PickColorViewController: UIViewController {
+class PickColorViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var colorView: UIView!
@@ -15,6 +16,8 @@ class PickColorViewController: UIViewController {
     var saveData: UserDefaults = UserDefaults.standard
     
     var image = UIImage()
+    var lat = CLLocationDegrees()
+    var lon = CLLocationDegrees()
     //表示されている画像のタップ座標用変数
     var tapPoint = CGPoint(x: 0, y: 0)
     

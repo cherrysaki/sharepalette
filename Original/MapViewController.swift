@@ -6,15 +6,23 @@
 //
 
 import UIKit
+import GoogleMaps
+//import GoogleMapsUtils
 
-class mapViewController: UIViewController {
-
+class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
+    private lazy var mapView: GMSMapView = {
+        // 東京を表示する緯度・経度・mapカメラズーム値を設定
+        let camera = GMSCameraPosition.camera(
+            withLatitude: 36.0,
+            longitude: 140.0,
+            zoom: 8.0)
+        let view = GMSMapView.map(withFrame: view.frame, camera: camera)
+        return view
+    }()
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        view.addSubview(mapView)
     }
-    
 
     /*
     // MARK: - Navigation
@@ -25,5 +33,6 @@ class mapViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+
 
 }
