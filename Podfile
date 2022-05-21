@@ -13,6 +13,12 @@ target 'Original' do
   pod 'GoogleMaps'
   pod 'Google-Maps-iOS-Utils'
 
+  post_install do |installer|
+  installer.pods_project.build_configurations.each do |config|
+    config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+  end
+end
+
   # Pods for Original
 
   target 'OriginalTests' do

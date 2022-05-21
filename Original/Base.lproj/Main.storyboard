@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8s5-wM-PlQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8s5-wM-PlQ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
@@ -236,7 +236,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jAz-LF-F9B">
-                                        <rect key="frame" x="20" y="60" width="374" height="782"/>
+                                        <rect key="frame" x="20" y="60" width="374" height="738"/>
                                     </stackView>
                                 </subviews>
                                 <constraints>
@@ -302,7 +302,7 @@
             </objects>
             <point key="canvasLocation" x="5216" y="867"/>
         </scene>
-        <!--Item-->
+        <!--map-->
         <scene sceneID="9SG-fF-BW4">
             <objects>
                 <viewController id="lKZ-1j-bCC" sceneMemberID="viewController">
@@ -312,7 +312,7 @@
                         <viewLayoutGuide key="safeArea" id="nPw-Xh-Sxc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="oht-ay-nSJ"/>
+                    <tabBarItem key="tabBarItem" title="map" image="map" selectedImage="map" id="oht-ay-nSJ"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OFx-v4-Zhm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -366,7 +366,7 @@
             </objects>
             <point key="canvasLocation" x="2142" y="867"/>
         </scene>
-        <!--Map View Controller-->
+        <!--map-->
         <scene sceneID="s9J-Kh-lST">
             <objects>
                 <viewController id="Oxm-7A-piZ" customClass="MapViewController" customModule="Original" customModuleProvider="target" sceneMemberID="viewController">
@@ -383,7 +383,7 @@
                         <viewLayoutGuide key="safeArea" id="w5d-qb-oHu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" selectedImage="selected favorite" id="jN2-Wm-2Ym"/>
+                    <tabBarItem key="tabBarItem" title="map" image="map" selectedImage="selected map" id="jN2-Wm-2Ym"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YoF-BH-eUA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -481,7 +481,8 @@
         <image name="IMG_3447" width="1664" height="242"/>
         <image name="favorite" width="25" height="25"/>
         <image name="favorite_selected" width="25" height="25"/>
-        <image name="selected favorite" width="25" height="25"/>
+        <image name="map" width="15" height="25"/>
+        <image name="selected map" width="15" height="25"/>
         <image name="アセット 10" width="123" height="123"/>
         <image name="アセット 6" width="121" height="121"/>
         <image name="アセット 7" width="122" height="121"/>

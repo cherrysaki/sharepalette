@@ -10,18 +10,19 @@ import GoogleMaps
 //import GoogleMapsUtils
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
-    private lazy var mapView: GMSMapView = {
+    private lazy var setupMap: GMSMapView = {
         // 東京を表示する緯度・経度・mapカメラズーム値を設定
         let camera = GMSCameraPosition.camera(
             withLatitude: 36.0,
             longitude: 140.0,
             zoom: 8.0)
-        let view = GMSMapView.map(withFrame: view.frame, camera: camera)
-        return view
+        let mapView = GMSMapView.map(withFrame: view.frame, camera: camera)
+        mapView.isMyLocationEnabled = true
+        return mapView
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(mapView)
+        view.addSubview(setupMap)
     }
 
     /*
