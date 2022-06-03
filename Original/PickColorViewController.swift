@@ -28,12 +28,12 @@ class PickColorViewController: UIViewController, CLLocationManagerDelegate {
     
     
     //色の配列
-    var colors: [Data] = []
+//    var colors: [Data] = []
     var color:UIColor = .white
-    var images: [Data] = []
-    var latArray: [Double] = []
-    var lonArray: [Double] = []
-    
+//    var images: [Data] = []
+//    var latArray: [Double] = []
+//    var lonArray: [Double] = []
+//    
     
     override func viewDidLoad() {
         imageView.image = image

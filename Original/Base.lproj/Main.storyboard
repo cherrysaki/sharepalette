@@ -328,7 +328,7 @@
                         <viewLayoutGuide key="safeArea" id="dwh-NS-W9X"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="04h-GL-qgW"/>
+                    <tabBarItem key="tabBarItem" title="Item" image="palette" id="04h-GL-qgW"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVJ-Tj-CNj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -483,6 +483,7 @@
         <image name="favorite" width="25" height="25"/>
         <image name="favorite_selected" width="25" height="25"/>
         <image name="map" width="15" height="25"/>
+        <image name="palette" width="27" height="27"/>
         <image name="selected map" width="15" height="25"/>
         <image name="アセット 10" width="123" height="123"/>
         <image name="アセット 6" width="121" height="121"/>
