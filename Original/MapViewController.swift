@@ -7,9 +7,29 @@
 
 import UIKit
 import GoogleMaps
-//import GoogleMapsUtils
 
 class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate{
+    
+    var lat = CLLocationDegrees()
+    var lon = CLLocationDegrees()
+    
+    
+    var saveData: UserDefaults = UserDefaults.standard
+    var latArray: [Double] = []
+    var lonArray: [Double] = []
+    
+    
+  
+    override func loadViewIfNeeded() {
+        if saveData.object(forKey: "lat") != nil {
+            latArray = saveData.object(forKey: "lat") as! [Double]
+        }
+        if saveData.object(forKey: "lon") != nil {
+            lonArray = saveData.object(forKey: "lon") as! [Double]
+        }
+    }
+    
+    
     private lazy var setupMap: GMSMapView = {
         // 東京を表示する緯度・経度・mapカメラズーム値を設定
         let camera = GMSCameraPosition.camera(
@@ -18,22 +38,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             zoom: 8.0)
         let mapView = GMSMapView.map(withFrame: view.frame, camera: camera)
         mapView.isMyLocationEnabled = true
+        
+        let marker = GMSMarker()
+        marker.position = CLLocationCoordinate2D(latitude: 36.0,longitude: 140.0)
+        marker.title = "TOKYO"
+        marker.map = mapView
         return mapView
     }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(setupMap)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
-
+    
 }

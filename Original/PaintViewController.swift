@@ -31,15 +31,12 @@ class PaintViewController: UIViewController,UICollectionViewDelegate,UICollectio
             colors = saveData.object(forKey: "color") as! [Data]
             setButton()
         }
-        //      color = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colors[2]) as! UIColor
-        //        collectionView.sizeThatFits(CGSize(width: , height: <#T##CGFloat#>))
         print(colors)
     }
     
     //
     func setButton(){
         let w = self.view.frame.width - 100
-        // StackView.heightAnchor.constraint(equalToConstant: w / 4).isActive = true
         print(StackView.layer.bounds.width)
         let  colorButton1 = UIButton(type: .custom)
         colorButton1.widthAnchor.constraint(equalToConstant: w / 4).isActive = true
@@ -120,28 +117,6 @@ class PaintViewController: UIViewController,UICollectionViewDelegate,UICollectio
     }
     
 }
-
-
-
-
-//    //colorボタン
-//    @IBAction func color1(){
-//       color = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colors[0]) as! UIColor
-//    }
-//
-//    @IBAction func color2(){
-//        color = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colors[1]) as! UIColor
-//    }
-//
-//    @IBAction func color3(){
-//        color = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colors[2]) as! UIColor
-//    }
-//
-//    @IBAction func color4(){
-//        color = try! NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(colors[3]) as! UIColor
-//    }
-
-
 
 
 
