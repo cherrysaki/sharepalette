@@ -23,6 +23,7 @@
 		E41CC1A227931A64007C44B8 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41CC1A127931A64007C44B8 /* CollectionViewController.swift */; };
 		E41CC1A427AD2E57007C44B8 /* ViewController4.swift in Sources */ = {isa = PBXBuildFile; fileRef = E41CC1A327AD2E57007C44B8 /* ViewController4.swift */; };
 		E4382BD928252A9900C1B29A /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4382BD828252A9900C1B29A /* LoginViewController.swift */; };
+		E473CB9F285C931200498E35 /* FirebaseStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E473CB9E285C931200498E35 /* FirebaseStorage.framework */; };
 		E4B32B9D27F6DD0E00E582A4 /* PaintViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B32B9C27F6DD0E00E582A4 /* PaintViewController.swift */; };
 		E4B950ED282E638A0073F1DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4B950EC282E638A0073F1DA /* GoogleService-Info.plist */; };
 		E4B95126282E657B0073F1DA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B95125282E657A0073F1DA /* MapViewController.swift */; };
@@ -73,6 +74,7 @@
 		E41CC1A127931A64007C44B8 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 		E41CC1A327AD2E57007C44B8 /* ViewController4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController4.swift; sourceTree = "<group>"; };
 		E4382BD828252A9900C1B29A /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E473CB9E285C931200498E35 /* FirebaseStorage.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FirebaseStorage.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B32B9C27F6DD0E00E582A4 /* PaintViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaintViewController.swift; sourceTree = "<group>"; };
 		E4B950EC282E638A0073F1DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E4B95125282E657A0073F1DA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7E343FDA673E804DD1479DCD /* Pods_Original.framework in Frameworks */,
+				E473CB9F285C931200498E35 /* FirebaseStorage.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +126,7 @@
 		CF78169E85BB7F152178FAAA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E473CB9E285C931200498E35 /* FirebaseStorage.framework */,
 				7CC602186B6677405BA22073 /* Pods_Original.framework */,
 				257DBA2BD94EFAA0AA736A67 /* Pods_Original_OriginalUITests.framework */,
 				B8CB762BF6A3968D39412541 /* Pods_OriginalTests.framework */,
