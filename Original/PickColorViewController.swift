@@ -64,72 +64,70 @@ class PickColorViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     @IBAction func save(){
-
-        var imageString = ""
-        let uploadImage = imageView.image!.jpegData(compressionQuality: 0.3)
-                //2画像の名前を設定
-                let fileName = NSUUID().uuidString
-                //3保存する場所を指定
-                let storageRef = Storage.storage().reference().child("postImage").child(fileName)
-                //4storageに画像を保存
-                storageRef.putData(uploadImage!, metadata: nil) { (metadate, error) in
-                    //errorがあったら
-                    if error != nil {
-                        print("Firestrageへの画像の保存に失敗")
-                    }else {
-                        print("Firestrageへの画像の保存に成功")
-                        //5画像のURLを取得
-                        storageRef.downloadURL { (url, error) in
-                            if error != nil {
-                                print("Firestorageからのダウンロードに失敗しました")
-                            }else {
-                                print("Firestorageからのダウンロードに成功しました")
-                                //6URLをString型に変更して変数urlStringにdainyuu
-                                guard let urlString =  url?.absoluteString else {
-                                    imageString = url!.absoluteString
-                                    return
-                                }
+        let date = FieldValue.serverTimestamp()
+        if let user = Auth.auth().currentUser {
+            var imageUrlString = ""
+            let storage = Storage.storage().reference(forURL: "gs://original-app-31d37.appspot.com")
+            let storageRef = storage.child("image").child("\(user.uid)+\(date).jpeg")
+            //storageに画像を保存
+            storageRef.putData(imageView.image!.jpegData(compressionQuality: 0.01)! as Data, metadata: nil) { (metadate, error) in
+                //errorがあったら
+                if error != nil {
+                    print("Firestrageへの画像の保存に失敗")
+                    print(error.debugDescription)
+                }else {
+                    print("Firestrageへの画像の保存に成功")
+                    //5画像のURLを取得
+                    storageRef.downloadURL { (url, error) in
+                        if error != nil {
+                            print("Firestorageからのダウンロードに失敗しました")
+                        }else {
+                            print("Firestorageからのダウンロードに成功しました")
+                            //6URLをString型に変更して変数urlStringにdainyuu
+                            guard let urlString = url?.absoluteString else {
+                                return
                             }
+                            imageUrlString = urlString
                         }
                     }
                 }
-
-        if let user = Auth.auth().currentUser {
-                let date = FieldValue.serverTimestamp()
-                        Firestore.firestore().collection("users/\(user.uid)/colors").document().setData(
-                            [
-                             "date": date,
-                             "image": imageString,
-                             "color": colorCode,
-                             "lat": lat,
-                             "lon": lon
-                            ],merge: true
-                            ,completion: { error in
-                                if let error = error {
-                                    // 失敗した場合
-                                    print("保存失敗: " + error.localizedDescription)
-                                    let dialog = UIAlertController(title: "保存失敗", message: error.localizedDescription, preferredStyle: .alert)
-                                    dialog.addAction(UIAlertAction(title: "OK", style: .default))
-                                    self.present(dialog, animated: true, completion: nil)
-                                } else {
-                                    print("保存成功")
-                                    //元の画面に戻る
-                                    self.dismiss(animated: true, completion: nil)
-                                }
-                        })
-                    }
+            }
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
+                Firestore.firestore().collection("users/\(user.uid)/colors").document().setData(
+                    [
+                        "date": date,
+                        "image": imageUrlString,
+                        "color": self.colorCode,
+                        "lat": self.lat,
+                        "lon": self.lon
+                    ],merge: true
+                    ,completion: { error in
+                        if let error = error {
+                            // 失敗した場合
+                            print("保存失敗: " + error.localizedDescription)
+                            let dialog = UIAlertController(title: "保存失敗", message: error.localizedDescription, preferredStyle: .alert)
+                            dialog.addAction(UIAlertAction(title: "OK", style: .default))
+                            self.present(dialog, animated: true, completion: nil)
+                        } else {
+                            print("保存成功")
+                            //元の画面に戻る
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                    })
+            }
+        }
     }
- 
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "mapConfirm" {
-//            let MapViewController: MapViewController = segue.destination as! MapViewController
-//
-//            MapViewController.lat = self.lat
-//            MapViewController.lon = self.lon
-//        }
-//
-//    }
+    
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        if segue.identifier == "mapConfirm" {
+    //            let MapViewController: MapViewController = segue.destination as! MapViewController
+    //
+    //            MapViewController.lat = self.lat
+    //            MapViewController.lon = self.lon
+    //        }
+    //
+    //    }
     
     // 位置情報を取得・更新したときに呼ばれる
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

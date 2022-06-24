@@ -98,29 +98,8 @@
                                     <constraint firstAttribute="height" constant="130" id="Q7I-T3-eoq"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EQT-PD-Tg8">
-                                <rect key="frame" x="220" y="266" width="147" height="137"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="アセット 10"/>
-                                <connections>
-                                    <action selector="Paint" destination="BYZ-38-t0r" eventType="touchUpInside" id="OF6-zQ-Gr2"/>
-                                    <segue destination="LRG-ll-hsq" kind="presentation" id="cbp-58-3hX"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z3D-hz-BrV">
-                                <rect key="frame" x="168" y="519" width="145" height="135"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="アセット 6">
-                                    <color key="baseForegroundColor" systemColor="labelColor"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="takePhoto" destination="BYZ-38-t0r" eventType="touchUpInside" id="IJ8-d2-Aud"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yWG-E0-Agy">
-                                <rect key="frame" x="45" y="371" width="121" height="121"/>
+                                <rect key="frame" x="147" y="283" width="121" height="121"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="アセット 7">
@@ -129,6 +108,17 @@
                                 <connections>
                                     <action selector="Collection" destination="BYZ-38-t0r" eventType="touchUpInside" id="ivc-eD-MHP"/>
                                     <segue destination="Hlc-15-Ecn" kind="presentation" id="zgb-Go-rtA"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z3D-hz-BrV">
+                                <rect key="frame" x="135" y="452" width="145" height="135"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="アセット 6">
+                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="takePhoto" destination="BYZ-38-t0r" eventType="touchUpInside" id="IJ8-d2-Aud"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -159,11 +149,11 @@
             <objects>
                 <viewController id="LRG-ll-hsq" customClass="PaintViewController" customModule="Original" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lPX-bk-C85">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BW8-JF-XDa">
-                                <rect key="frame" x="0.0" y="144" width="414" height="414"/>
+                                <rect key="frame" x="0.0" y="171" width="414" height="414"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="BW8-JF-XDa" secondAttribute="height" multiplier="1:1" id="nbS-ZJ-pdq"/>
@@ -466,11 +456,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="3J7-px-7av"/>
-                        <segue destination="Oxm-7A-piZ" kind="relationship" relationship="viewControllers" id="1bw-0f-6lc"/>
-                        <segue destination="lKZ-1j-bCC" kind="relationship" relationship="viewControllers" destinationCreationSelector="mapConfirm" id="7Dm-Rc-Baf"/>
-                        <segue destination="ChK-FS-bm8" kind="relationship" relationship="viewControllers" id="iqR-fB-0Lv"/>
-                        <segue destination="ebq-FV-zjt" kind="relationship" relationship="viewControllers" id="vBw-xB-UBD"/>
-                        <segue destination="Zqa-fv-Dke" kind="relationship" relationship="viewControllers" id="2JA-Do-iar"/>
+                        <segue destination="Oxm-7A-piZ" kind="relationship" relationship="viewControllers" id="RrZ-4F-o9g"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vLG-15-cT8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -485,7 +471,6 @@
         <image name="map" width="15" height="25"/>
         <image name="palette" width="27" height="27"/>
         <image name="selected map" width="15" height="25"/>
-        <image name="アセット 10" width="123" height="123"/>
         <image name="アセット 6" width="121" height="121"/>
         <image name="アセット 7" width="122" height="121"/>
         <image name="無題36_20220217232732" width="720" height="1280"/>
