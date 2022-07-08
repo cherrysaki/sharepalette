@@ -28,6 +28,8 @@
 		E4B950ED282E638A0073F1DA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E4B950EC282E638A0073F1DA /* GoogleService-Info.plist */; };
 		E4B95126282E657B0073F1DA /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B95125282E657A0073F1DA /* MapViewController.swift */; };
 		E4BA4D68282E6F1200747795 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BA4D67282E6F1200747795 /* TabBarViewController.swift */; };
+		E4E8448A287832F70040DA01 /* LocationStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E84489287832F70040DA01 /* LocationStateManager.swift */; };
+		E4E8448C28783AF80040DA01 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E8448B28783AF80040DA01 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +81,8 @@
 		E4B950EC282E638A0073F1DA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E4B95125282E657A0073F1DA /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		E4BA4D67282E6F1200747795 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		E4E84489287832F70040DA01 /* LocationStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationStateManager.swift; sourceTree = "<group>"; };
+		E4E8448B28783AF80040DA01 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +173,8 @@
 				E4382BD828252A9900C1B29A /* LoginViewController.swift */,
 				E4BA4D67282E6F1200747795 /* TabBarViewController.swift */,
 				E4B95125282E657A0073F1DA /* MapViewController.swift */,
+				E4E84489287832F70040DA01 /* LocationStateManager.swift */,
+				E4E8448B28783AF80040DA01 /* DetailViewController.swift */,
 				E41CC171276DB4A8007C44B8 /* Main.storyboard */,
 				E41CC174276DB4AA007C44B8 /* Assets.xcassets */,
 				E41CC176276DB4AA007C44B8 /* LaunchScreen.storyboard */,
@@ -494,11 +500,13 @@
 				E41CC1A227931A64007C44B8 /* CollectionViewController.swift in Sources */,
 				E41CC1A427AD2E57007C44B8 /* ViewController4.swift in Sources */,
 				E41CC170276DB4A8007C44B8 /* CameraViewController.swift in Sources */,
+				E4E8448C28783AF80040DA01 /* DetailViewController.swift in Sources */,
 				E41CC1A0277C45FA007C44B8 /* PickColorViewController.swift in Sources */,
 				E4382BD928252A9900C1B29A /* LoginViewController.swift in Sources */,
 				E41CC16C276DB4A8007C44B8 /* AppDelegate.swift in Sources */,
 				E4B95126282E657B0073F1DA /* MapViewController.swift in Sources */,
 				E41CC16E276DB4A8007C44B8 /* SceneDelegate.swift in Sources */,
+				E4E8448A287832F70040DA01 /* LocationStateManager.swift in Sources */,
 				E4BA4D68282E6F1200747795 /* TabBarViewController.swift in Sources */,
 				E4B32B9D27F6DD0E00E582A4 /* PaintViewController.swift in Sources */,
 			);
