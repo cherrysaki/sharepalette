@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailViewController: UITabBarController {
+class DetailViewController: UIViewController {
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var colorView: UIView!

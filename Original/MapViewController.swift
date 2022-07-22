@@ -29,70 +29,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var dataList: Dictionary<String, Any> = [:]
     var markers: Dictionary<String, GMSMarker> = [:]
     var isMyLocation = true
-    
-    //    override func viewWillAppear(_ animated: Bool) {
-    //        super.viewWillAppear(animated)
-    //
-    //        if let user = Auth.auth().currentUser {
-    //
-    //            // ユーザー名を取得する処理省略
-    //
-    //            Firestore.firestore().collection("users/\(user.uid)/colors").addSnapshotListener({ (querySnapshot, error) in
-    //                if let querySnapshot = querySnapshot {
-    //                    var idArray: [String] = []
-    //                    var dateArray:[Date] = []
-    //                    var imageArray:[UIImage] = []
-    //                    var colorArray:[UIColor] = []
-    //                    var latArray:[Double] = []
-    //                    var lonArray:[Double] = []
-    //                    for doc in querySnapshot.documents {
-    //                        let data = doc.data()
-    //                        idArray.append(doc.documentID)
-    //                        let timeStamp = data["date"] as! Timestamp
-    //                        dateArray.append(timeStamp.dateValue())
-    //                        let storage = Storage.storage()
-    //                        var reference: StorageReference!
-    //                        print(" 🍣")
-    //                        print(data["image"] as? String ?? "Unknown")
-    //                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.8) {
-    //                            reference = storage.reference(forURL: data["image"] as? String ?? "Unknown")
-    //                            reference.downloadURL { (url, error) in
-    //                                print("image url is",url!)
-    //                                let data = NSData(contentsOf: url!)
-    //                                imageArray.append(UIImage(data: data! as Data)!)
-    //                            }
-    //                        }
-    //                        colorArray.append(UIColor.hex(string: data["color"] as! String, alpha: 1.0))
-    //                        latArray.append(data["lat"] as! Double)
-    //                        lonArray.append(data["lon"] as! Double)
-    //                        print("日付\(dateArray)")
-    //                    }
-    //                    self.idArray = idArray
-    //                    self.dateArray = dateArray
-    //                    self.imageArray = imageArray
-    //                    self.colorArray = colorArray
-    //                    self.latArray = latArray
-    //                    self.lonArray = lonArray
-    //
-    //                } else if let error = error {
-    //                    print("取得失敗: " + error.localizedDescription)
-    //                }
-    //            })
-    //        }
-    //        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-    //            print(self.latArray)
-    //            self.view.addSubview(self.setupMap)
-    //        }
-    //    }
-    
-    //    override func loadViewIfNeeded() {
-    //        if saveData.object(forKey: "lat") != nil {
-    //            latArray = saveData.object(forKey: "lat") as! [Double]
-    //        }
-    //        if saveData.object(forKey: "lon") != nil {
-    //            lonArray = saveData.object(forKey: "lon") as! [Double]
-    //        }
-    //    }
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -193,6 +130,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         color = UIColor.hex(string: data["color"] as! String, alpha: 1.0)
         colorCode = "#\(data["color"] as! String)"
         print("onClick")
+        print(color)
+        print(image)
+        print(colorCode)
         self.performSegue(withIdentifier: "toDetailVC", sender: self)
         
         return true
@@ -206,44 +146,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             detailVC?.colorCode = self.colorCode
         }
     }
-    
-    //    private lazy var setupMap: GMSMapView = {
-    //        // 東京を表示する緯度・経度・mapカメラズーム値を設定
-    //        let camera = GMSCameraPosition.camera(
-    //            withLatitude: lat,
-    //            longitude: lon,
-    //            zoom: 8.0)
-    //        let mapView = GMSMapView.map(withFrame: view.frame, camera: camera)
-    //        mapView.isMyLocationEnabled = true
-    //        for i in 0...latArray.count - 1 {
-    //            let marker = GMSMarker()
-    //            let opacityAnimation = CABasicAnimation(keyPath: "opacity")
-    //            opacityAnimation.fromValue = 0.0
-    //            opacityAnimation.toValue = 1.0
-    //            opacityAnimation.duration = 0.5
-    //            opacityAnimation.isRemovedOnCompletion = false
-    //            opacityAnimation.fillMode = .forwards
-    //            opacityAnimation.delegate = self
-    //            opacityAnimation.setValue(marker.layer, forKey: "marker_opacity1")
-    //            marker.layer.add(opacityAnimation, forKey: "marker_opacity2")
-    //            marker.position = CLLocationCoordinate2D(latitude: latArray[i],longitude: lonArray[i])
-    //            let label = UILabel(frame: CGRect(x:0.0, y:0.0, width:20.0, height:20.0))
-    //            //            label.text = "s"
-    //            //            label.font = UIFont.systemFont(ofSize: 15.0)
-    //            //            label.textAlignment = .center
-    //            //            label.textColor = .white
-    //            let markerView = UIView(frame: CGRect(x:0.0, y:0.0, width:20.0, height:20.0))
-    //            markerView.layer.cornerRadius = 10.0
-    //            markerView.layer.borderWidth = 5.0
-    //            markerView.layer.borderColor = colorArray[i].cgColor
-    //            markerView.backgroundColor = .white
-    //            markerView.addSubview(label)
-    //            marker.iconView = markerView
-    //            marker.map = mapView
-    //        }
-    //        return mapView
-    //    }()
-    
     
 }
 

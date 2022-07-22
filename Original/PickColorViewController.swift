@@ -83,8 +83,9 @@ class PickColorViewController: UIViewController, CLLocationManagerDelegate {
                 let url = self.getDownloadUrl(storageRef: ref)
                 // カラーデータの保存
                 self.postColorData(user: user, imageUrlString: url)
-                
-                loadingView.removeFromSuperview()
+                DispatchQueue.main.async {
+                    loadingView.removeFromSuperview()
+                }
                 print("complete!")
             }
             
