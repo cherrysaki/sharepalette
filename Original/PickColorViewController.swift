@@ -75,10 +75,11 @@ class PickColorViewController: UIViewController, CLLocationManagerDelegate {
         
         // ユーザーがログインしているか確認する
         if let user = Auth.auth().currentUser {
+            let image = self.imageView.image?.jpegData(compressionQuality: 0.01)!
             // データを保存
             DispatchQueue(label: "post data", qos: .default).async {
                 // 画像のアップロード
-                let ref = self.postImage(user: user)
+                let ref = self.postImage(user: user,image: image!)
                 // ダウンロードURLの取得
                 let url = self.getDownloadUrl(storageRef: ref)
                 // カラーデータの保存
@@ -97,7 +98,7 @@ class PickColorViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     // TODO: postImage
-    private func postImage(user: User) -> StorageReference {
+    private func postImage(user: User,image:Data) -> StorageReference {
         let semaphore = DispatchSemaphore(value: 0)
         
         let currentTimeStampInSecond = NSDate().timeIntervalSince1970
@@ -107,8 +108,8 @@ class PickColorViewController: UIViewController, CLLocationManagerDelegate {
         let storageRef = storage.child("image").child(user.uid).child("\(user.uid)+\(currentTimeStampInSecond).jpg")
         
         // ファイルをアップロード
-        let image = self.imageView.image?.jpegData(compressionQuality: 0.01)!
-        storageRef.putData(image!, metadata: nil) { (metadate, error) in
+   
+        storageRef.putData(image, metadata: nil) { (metadate, error) in
             //errorがあったら
             if error != nil {
                 print("Firestrageへの画像の保存に失敗")

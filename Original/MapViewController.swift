@@ -33,6 +33,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupMap()
         
         if let user = Auth.auth().currentUser {
@@ -101,14 +102,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     private func createMarker(id: String, data: Dictionary<String, Any>) -> GMSMarker {
         let lat = data["lat"] as! Double
         let lon = data["lon"] as! Double
-        let color = UIColor.hex(string: data["color"] as! String, alpha: 1.0).cgColor
-        
+        let color = UIColor.hex(string: data["color"] as! String, alpha: 1.0)
+        print(data["color"] as! String)
         let label = UILabel(frame: CGRect(x:0.0, y:0.0, width:20.0, height:20.0))
-        
         let markerView = UIView(frame: CGRect(x:0.0, y:0.0, width:20.0, height:20.0))
         markerView.layer.cornerRadius = 10.0
         markerView.layer.borderWidth = 5.0
-        markerView.layer.borderColor = color
+        markerView.layer.borderColor = color.cgColor
         markerView.backgroundColor = .white
         markerView.addSubview(label)
         markerView.accessibilityIdentifier = id
@@ -147,10 +147,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
     }
     
-}
-
-extension UIColor {
-    class func hex(string: String, alpha: CGFloat) -> UIColor {
+    func hex(string: String, alpha: CGFloat) -> UIColor {
         let string_ = string.replacingOccurrences(of: "#", with: "")
         let scanner = Scanner(string: string_ as String)
         var color: UInt32 = 0
@@ -163,21 +160,21 @@ extension UIColor {
             return UIColor.white
         }
     }
+    
 }
 
-public struct MyColor: Codable {
-    
-    let color: String
-    let date: Date
-    let image: String
-    let lat: Float
-    let lon: Float
-    
-    enum CodingKeys: String, CodingKey {
-        case color
-        case date
-        case image
-        case lat
-        case lon
-    }
-}
+//extension UIColor {
+//    class func hex(string: String, alpha: CGFloat) -> UIColor {
+//        let string_ = string.replacingOccurrences(of: "#", with: "")
+//        let scanner = Scanner(string: string_ as String)
+//        var color: UInt32 = 0
+//        if scanner.scanHexInt32(&color) {
+//            let r = CGFloat((color & 0xFF0000) >> 16) / 255.0
+//            let g = CGFloat((color & 0x00FF00) >> 8) / 255.0
+//            let b = CGFloat(color & 0x0000FF) / 255.0
+//            return UIColor(red:r,green:g,blue:b,alpha:alpha)
+//        } else {
+//            return UIColor.white
+//        }
+//    }
+//}

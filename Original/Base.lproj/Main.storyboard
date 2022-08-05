@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="JG9-xZ-Fru">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="8s5-wM-PlQ">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -78,84 +78,41 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ggV-Kd-mYu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-725" y="88"/>
+            <point key="canvasLocation" x="-1577" y="88"/>
         </scene>
-        <!--Main-->
+        <!--Camera View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="CameraViewController" modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="CameraViewController" customModule="Original" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="BYZ-38-t0r" customClass="CameraViewController" customModule="Original" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="無題36_20220217232732" translatesAutoresizingMaskIntoConstraints="NO" id="y7Z-20-PKr">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="IMG_3447" translatesAutoresizingMaskIntoConstraints="NO" id="xg9-8m-o0J">
-                                <rect key="frame" x="45" y="104" width="324" height="130"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="130" id="Q7I-T3-eoq"/>
-                                </constraints>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yWG-E0-Agy">
-                                <rect key="frame" x="147" y="283" width="121" height="121"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="アセット 7">
-                                    <color key="baseForegroundColor" systemColor="labelColor"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="Collection" destination="BYZ-38-t0r" eventType="touchUpInside" id="ivc-eD-MHP"/>
-                                    <segue destination="Hlc-15-Ecn" kind="presentation" id="zgb-Go-rtA"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z3D-hz-BrV">
-                                <rect key="frame" x="135" y="452" width="145" height="135"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" image="アセット 6">
-                                    <color key="baseForegroundColor" systemColor="labelColor"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <action selector="takePhoto" destination="BYZ-38-t0r" eventType="touchUpInside" id="IJ8-d2-Aud"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="xg9-8m-o0J" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2tV-wh-wxl"/>
-                            <constraint firstAttribute="bottom" secondItem="y7Z-20-PKr" secondAttribute="bottom" id="Kjr-vb-DbO"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xg9-8m-o0J" secondAttribute="trailing" constant="45" id="POn-wp-vPQ"/>
-                            <constraint firstItem="y7Z-20-PKr" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Sxj-DM-GRm"/>
-                            <constraint firstItem="y7Z-20-PKr" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Ut3-d8-93k"/>
-                            <constraint firstItem="y7Z-20-PKr" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="VE7-cg-OlG"/>
-                            <constraint firstItem="xg9-8m-o0J" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="45" id="YcD-jS-qNl"/>
-                            <constraint firstItem="xg9-8m-o0J" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="60" id="zVe-KU-IXI"/>
-                        </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Main" image="favorite" selectedImage="favorite_selected" id="W3b-7X-2qF"/>
+                    <tabBarItem key="tabBarItem" image="plus.circle.fill" catalog="system" selectedImage="plus.circle.fill" id="MZ1-bw-RdV"/>
+                    <navigationItem key="navigationItem" id="cjk-se-GAC"/>
                     <connections>
                         <segue destination="t0X-s3-LNY" kind="presentation" identifier="photoConfirm" id="2sw-VR-QKp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1225" y="88"/>
+            <point key="canvasLocation" x="1145" y="88"/>
         </scene>
         <!--Collection View Controller-->
         <scene sceneID="8i3-Gv-Puz">
             <objects>
                 <viewController id="Hlc-15-Ecn" customClass="CollectionViewController" customModule="Original" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="tfh-2e-50H">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yAK-Ub-uQM">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="jAz-LF-F9B">
-                                        <rect key="frame" x="20" y="60" width="374" height="738"/>
+                                        <rect key="frame" x="20" y="60" width="374" height="792"/>
                                     </stackView>
                                 </subviews>
                                 <constraints>
@@ -221,10 +178,10 @@
             </objects>
             <point key="canvasLocation" x="2943" y="-893"/>
         </scene>
-        <!--map-->
+        <!--Map View Controller-->
         <scene sceneID="s9J-Kh-lST">
             <objects>
-                <viewController id="Oxm-7A-piZ" customClass="MapViewController" customModule="Original" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Oxm-7A-piZ" customClass="MapViewController" customModule="Original" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0ot-jj-EWR">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -238,7 +195,8 @@
                         <viewLayoutGuide key="safeArea" id="w5d-qb-oHu"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="map" image="map" selectedImage="selected map" id="jN2-Wm-2Ym"/>
+                    <tabBarItem key="tabBarItem" image="map" catalog="system" selectedImage="map.fill" id="9ex-Et-rsv"/>
+                    <navigationItem key="navigationItem" id="HZk-Y3-oke"/>
                     <connections>
                         <outlet property="mapView" destination="mPc-ez-pGw" id="Woc-5e-Qyr"/>
                         <segue destination="ZJj-ac-h08" kind="show" identifier="toDetailVC" id="jkl-A5-fyd"/>
@@ -246,7 +204,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YoF-BH-eUA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1226" y="813"/>
+            <point key="canvasLocation" x="3044.9275362318845" y="812.94642857142856"/>
         </scene>
         <!--Detail View Controller-->
         <scene sceneID="O5G-46-3ap">
@@ -285,7 +243,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kVa-zh-wxG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2173.913043478261" y="812.94642857142856"/>
+            <point key="canvasLocation" x="3994.202898550725" y="812.94642857142856"/>
         </scene>
         <!--Pick Color View Controller-->
         <scene sceneID="6Wy-1y-Gzm">
@@ -350,7 +308,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="2174" y="88"/>
+            <point key="canvasLocation" x="3084.057971014493" y="87.723214285714278"/>
         </scene>
         <!--Tab Bar View Controller-->
         <scene sceneID="EB5-fE-9Gz">
@@ -362,31 +320,75 @@
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" systemColor="systemRedColor"/>
                     </tabBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="3J7-px-7av"/>
-                        <segue destination="Oxm-7A-piZ" kind="relationship" relationship="viewControllers" id="RrZ-4F-o9g"/>
+                        <segue destination="qdn-uv-JD1" kind="relationship" relationship="viewControllers" id="Yqv-Us-3G6"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="viewControllers" id="66V-qe-nVi"/>
+                        <segue destination="Oxm-7A-piZ" kind="relationship" relationship="viewControllers" id="MHi-Gh-8TJ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vLG-15-cT8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="166.66666666666669" y="87.723214285714278"/>
         </scene>
+        <!--Palette Table View Controller-->
+        <scene sceneID="oAE-mF-XXC">
+            <objects>
+                <viewController id="qdn-uv-JD1" customClass="PaletteTableViewController" customModule="Original" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SY8-Bj-uy0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Jcl-hR-4Sa">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="XvF-rV-UYK" customClass="PaletteTableViewCell" customModule="Original" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XvF-rV-UYK" id="G8E-uM-l4C">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="w8v-IW-Fyl"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="Jcl-hR-4Sa" firstAttribute="trailing" secondItem="w8v-IW-Fyl" secondAttribute="trailing" id="1Vj-Rw-hNZ"/>
+                            <constraint firstAttribute="bottom" secondItem="Jcl-hR-4Sa" secondAttribute="bottom" id="QTk-nd-rhd"/>
+                            <constraint firstItem="Jcl-hR-4Sa" firstAttribute="top" secondItem="SY8-Bj-uy0" secondAttribute="top" id="VHK-wr-wKQ"/>
+                            <constraint firstItem="Jcl-hR-4Sa" firstAttribute="leading" secondItem="w8v-IW-Fyl" secondAttribute="leading" id="pjA-KU-cC1"/>
+                        </constraints>
+                    </view>
+                    <tabBarItem key="tabBarItem" image="star" catalog="system" selectedImage="star.fill" id="mHc-HS-H78"/>
+                    <navigationItem key="navigationItem" id="jUy-wv-4xK"/>
+                    <connections>
+                        <outlet property="tableView" destination="Jcl-hR-4Sa" id="1wO-vv-J2v"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xi7-8D-JlV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1076.8115942028987" y="886.60714285714278"/>
+        </scene>
     </scenes>
     <resources>
-        <image name="IMG_3447" width="1664" height="242"/>
-        <image name="favorite" width="25" height="25"/>
-        <image name="favorite_selected" width="25" height="25"/>
-        <image name="map" width="15" height="25"/>
-        <image name="selected map" width="15" height="25"/>
-        <image name="アセット 6" width="121" height="121"/>
-        <image name="アセット 7" width="122" height="121"/>
-        <image name="無題36_20220217232732" width="720" height="1280"/>
+        <image name="map" catalog="system" width="128" height="110"/>
+        <image name="map.fill" catalog="system" width="128" height="110"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="star" catalog="system" width="128" height="116"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

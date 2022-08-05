@@ -12,11 +12,27 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     
     var CollectionImage: UIImage!
     
+    override func viewWillAppear(_ animated: Bool) {
+        //self.tabBarController?.tabBar.isHidden = false
+        if UIImagePickerController.isSourceTypeAvailable(.camera){
+
+            let picker = UIImagePickerController()
+            picker.sourceType = .camera
+            picker.delegate = self
+
+            picker.allowsEditing = true
+
+            present(picker, animated: true,completion: nil)
+
+        }else{
+            print("error")
+        }
+    }
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // アプリの使用中に位置情報サービスを使用する許可をリクエストする
-        
         
     }
     
@@ -38,7 +54,9 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
         
     }
     
-    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
     
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
