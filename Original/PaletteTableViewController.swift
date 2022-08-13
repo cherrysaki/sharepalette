@@ -12,9 +12,20 @@ import CoreLocation
 class PaletteTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, CLLocationManagerDelegate {
     
     @IBOutlet var tableView: UITableView!
-
-    var colorArray: [UIColor] = []
-    var dateArray: [String] = []
+    
+    var colorArray: [UIColor] = [] {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    var colorCodeArray: [String] = []{
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
+    var color: UIColor = UIColor()
     
     var data: Dictionary<String, Any> = [:]
     var isMyLocation = true
@@ -26,21 +37,38 @@ class PaletteTableViewController: UIViewController, UITableViewDelegate, UITable
         tableView.dataSource = self
         tableView.rowHeight = 80
         tableView.register(UINib(nibName: "PaletteTableViewCell", bundle: nil), forCellReuseIdentifier: "PaletteCell")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        colorArray = []
+        getFirebasedocuments()
+    }
+    
+ 
+    
+    
+    func getFirebasedocuments() {
+        var testArray: [UIColor] = []
+        var testcodeArray: [String] = []
         
         if let user = Auth.auth().currentUser {
-            Firestore.firestore().collection("users/\(user.uid)/colors")
-                .addSnapshotListener { [self] querySnapshot, error in
-                    guard let snapshot = querySnapshot else {
-                        print("Error fetching snapshots: \(error!)")
-                        return
+            Firestore.firestore().collection("users/\(user.uid)/colors").getDocuments(completion: { [self] collection, error in
+                if let error = error{
+                    print(error)
+                }else{
+                    for document in collection!.documents{
+                        guard let colorCode = document.get("color") as? String else { return }
+                        self.color = UIColor.hex(string: colorCode , alpha: 1.0)
+                        testArray.append(self.color)
+                        testcodeArray.append(colorCode)
+                        print(testArray)
                     }
-                    snapshot.documentChanges.forEach { diff in
-                        //データを取得
-                        //snapshotのデータをcolorArray,dateArrayにいれたい
-                        //https://re-engines.com/2020/01/09/ios%E3%81%A7firestore%E3%82%92%E4%BD%BF%E3%81%A3%E3%81%A6%E3%81%BF%E3%81%9F%E3%80%80%E3%81%9D%E3%81%AE2/
-                    }
+                    colorArray = testArray
+                    colorCodeArray = testcodeArray
                 }
+            })
         }
+        
     }
     
     
@@ -54,7 +82,7 @@ class PaletteTableViewController: UIViewController, UITableViewDelegate, UITable
         
         // セルに表示する値を設定する
         cell.colorView.backgroundColor = colorArray[indexPath.row]
-        cell.label.text = "sample"
+        cell.label.text = "#" + colorCodeArray[indexPath.row]
         
         return cell
     }

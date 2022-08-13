@@ -20,7 +20,7 @@ class PickColorViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet var colorView: UIView!
     @IBOutlet var saveButton: UIButton!
     
-    //let locationManager = CLLocationManager()
+
     let locationStateManager = LocationStateManager.shared
     
     var saveData: UserDefaults = UserDefaults.standard
@@ -42,9 +42,6 @@ class PickColorViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         imageView.image = image
-//        locationManager.delegate = self
-//        locationManager.requestWhenInUseAuthorization()
-//        locationManager.requestLocation()
     }
     
     //imageviewをタップした時に色を判別
@@ -202,90 +199,6 @@ class PickColorViewController: UIViewController, CLLocationManagerDelegate {
     }
     
 }
-
-
-//    @IBAction func save(){
-//        let date = FieldValue.serverTimestamp()
-//        if let user = Auth.auth().currentUser {
-//            var imageUrlString = ""
-//            let storage = Storage.storage().reference(forURL: "gs://original-app-31d37.appspot.com")
-//            let storageRef = storage.child("image").child("\(user.uid)+\(date).jpeg")
-//            //storageに画像を保存
-//            storageRef.putData(imageView.image!.jpegData(compressionQuality: 0.01)! as Data, metadata: nil) { (metadate, error) in
-//                //errorがあったら
-//                if error != nil {
-//                    print("Firestrageへの画像の保存に失敗")
-//                    print(error.debugDescription)
-//                }else {
-//                    print("Firestrageへの画像の保存に成功")
-//                    //5画像のURLを取得
-//                    storageRef.downloadURL { (url, error) in
-//                        if error != nil {
-//                            print("Firestorageからのダウンロードに失敗しました")
-//                        }else {
-//                            print("Firestorageからのダウンロードに成功しました")
-//                            //6URLをString型に変更して変数urlStringにdainyuu
-//                            guard let urlString = url?.absoluteString else {
-//                                return
-//                            }
-//                            imageUrlString = urlString
-//                        }
-//                    }
-//                }
-//            }
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
-//                Firestore.firestore().collection("users/\(user.uid)/colors").document().setData(
-//                    [
-//                        "date": date,
-//                        "image": imageUrlString,
-//                        "color": self.colorCode,
-//                        "lat": self.lat,
-//                        "lon": self.lon
-//                    ],merge: true
-//                    ,completion: { error in
-//                        if let error = error {
-//                            // 失敗した場合
-//                            print("保存失敗: " + error.localizedDescription)
-//                            let dialog = UIAlertController(title: "保存失敗", message: error.localizedDescription, preferredStyle: .alert)
-//                            dialog.addAction(UIAlertAction(title: "OK", style: .default))
-//                            self.present(dialog, animated: true, completion: nil)
-//                        } else {
-//                            print("保存成功")
-//                            //元の画面に戻る
-//                            self.dismiss(animated: true, completion: nil)
-//                        }
-//                    })
-//            }
-//        }
-//    }
-//
-//
-//    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//    //        if segue.identifier == "mapConfirm" {
-//    //            let MapViewController: MapViewController = segue.destination as! MapViewController
-//    //
-//    //            MapViewController.lat = self.lat
-//    //            MapViewController.lon = self.lon
-//    //        }
-//    //
-//    //    }
-//
-//    // 位置情報を取得・更新したときに呼ばれる
-//    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        // 最後に収集したlocationを取得
-//        if let location = locations.last {
-//            // 経度と緯度を取得
-//            lat = location.coordinate.latitude
-//            lon = location.coordinate.longitude
-//            print("緯度: \(lat), 経度: \(lon)")
-//        }
-//    }
-//
-//    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-//        print(error)
-//    }
-//
-//}
 
 
 

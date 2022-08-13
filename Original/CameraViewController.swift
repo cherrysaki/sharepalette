@@ -10,19 +10,26 @@ import UIKit
 
 class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
+//    キャンセルされたかどうか
+    var isCancelled: Bool = false
+    
     var CollectionImage: UIImage!
     
     override func viewWillAppear(_ animated: Bool) {
-        //self.tabBarController?.tabBar.isHidden = false
+//        self.tabBarController?.tabBar.isHidden = false
         if UIImagePickerController.isSourceTypeAvailable(.camera){
+            if isCancelled == false {
+                
+                let picker = UIImagePickerController()
+                picker.sourceType = .camera
+                picker.delegate = self
 
-            let picker = UIImagePickerController()
-            picker.sourceType = .camera
-            picker.delegate = self
+                picker.allowsEditing = true
 
-            picker.allowsEditing = true
-
-            present(picker, animated: true,completion: nil)
+                present(picker, animated: true,completion: nil)
+            }else {
+                isCancelled = false
+            }
 
         }else{
             print("error")
@@ -55,7 +62,12 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        isCancelled = true
         picker.dismiss(animated: true, completion: nil)
+        
+        let previousViewController = tabBarController?.viewControllers?[0]
+        tabBarController?.selectedViewController = previousViewController
+        
     }
     
     
@@ -66,9 +78,11 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
             picker.dismiss(animated: true, completion: nil)
             //写真confirm画面へ遷移
             self.performSegue(withIdentifier: "photoConfirm", sender: self)
-            
+           
         } else {
             picker.dismiss(animated: true, completion: nil)
+            
+            
             
         }
         
@@ -87,15 +101,4 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     }
     
     
-    @IBAction func Paint(){
-        
-    }
-    
-    @IBAction func Collection(){
-        
-        
-    }
-    
 }
-
-
