@@ -10,27 +10,27 @@ import UIKit
 
 class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
     
-//    キャンセルされたかどうか
+    //    キャンセルされたかどうか
     var isCancelled: Bool = false
     
     var CollectionImage: UIImage!
     
     override func viewWillAppear(_ animated: Bool) {
-//        self.tabBarController?.tabBar.isHidden = false
+        //        self.tabBarController?.tabBar.isHidden = false
         if UIImagePickerController.isSourceTypeAvailable(.camera){
             if isCancelled == false {
                 
                 let picker = UIImagePickerController()
                 picker.sourceType = .camera
                 picker.delegate = self
-
+                
                 picker.allowsEditing = true
-
+                
                 present(picker, animated: true,completion: nil)
             }else {
                 isCancelled = false
             }
-
+            
         }else{
             print("error")
         }
@@ -78,7 +78,7 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
             picker.dismiss(animated: true, completion: nil)
             //写真confirm画面へ遷移
             self.performSegue(withIdentifier: "photoConfirm", sender: self)
-           
+            
         } else {
             picker.dismiss(animated: true, completion: nil)
             
@@ -90,15 +90,13 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //segueのIDを確認して特定のsegueの時のみ動作させる
+//        segueのIDを確認して特定のsegueの時のみ動作させる
         if segue.identifier == "photoConfirm" {
-            //遷移先のViewControllerを獲得
+            //            //遷移先のViewControllerを獲得
             let PickColorViewController: PickColorViewController = segue.destination as! PickColorViewController
             
             //遷移先の変数に値を渡す
             PickColorViewController.image = self.CollectionImage
         }
     }
-    
-    
 }

@@ -18,9 +18,11 @@ class PickColorViewController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet var imageView: UIImageView!
     @IBOutlet var colorView: UIView!
+    @IBOutlet var ColorCodeLabel: UILabel!
+    @IBOutlet var RGBLabel: UILabel!
     @IBOutlet var saveButton: UIButton!
     
-
+    
     let locationStateManager = LocationStateManager.shared
     
     var saveData: UserDefaults = UserDefaults.standard
@@ -42,6 +44,7 @@ class PickColorViewController: UIViewController, CLLocationManagerDelegate {
     
     override func viewDidLoad() {
         imageView.image = image
+        imageView.layer.cornerRadius = 10
     }
     
     //imageviewをタップした時に色を判別
@@ -52,14 +55,30 @@ class PickColorViewController: UIViewController, CLLocationManagerDelegate {
         
         tappedAreaView.backgroundColor = .red
         
-        self.imageView.addSubview(tappedAreaView)
+//        self.imageView.addSubview(tappedAreaView)
         
         guard imageView.image != nil else {return}
         
         //タップした座標の取得
         tapPoint = sender.location(in: imageView)
-        colorCode = (imageView.image?.getColor(pos: tapPoint))!
-        colorView.backgroundColor = UIColor.hex(string: colorCode, alpha: 1.0)
+        var pixelColor = (imageView.image?.pixelColor(x: Int(tapPoint.x), y: Int(tapPoint.y)))
+//        print(pixelColor?.red())
+//        print(pixelColor?.green())
+//        print(pixelColor?.blue())
+//        print("-------")
+        
+        pixelColor = imageView.colorOfPoint(point: sender.location(in: imageView))
+
+//        colorCode = String(NSString(format: "%02x%02x%02x", Int(pixelColor.re),Int(pixelColor.green()),Int(pixelColor.blue())))
+        
+//        colorCode = (imageView.image?.getColor(pos: tapPoint))!
+        colorView.backgroundColor = pixelColor
+//        colorView.backgroundColor = UIColor.hex(string: colorCode, alpha: 1.0)
+        colorView.layer.cornerRadius = 35
+//        ColorCodeLabel.text = "#" + String(colorCode)
+//        RGBLabel.text = "R:\(UIColor.hex(string: colorCode, alpha: 1).red()) " + "G:\(UIColor.hex(string: colorCode, alpha: 1).green()) " + "B:\(UIColor.hex(string: colorCode, alpha: 1).blue())"
+        
+        
     }
     
     // TODO: データの保存処理
@@ -105,7 +124,7 @@ class PickColorViewController: UIViewController, CLLocationManagerDelegate {
         let storageRef = storage.child("image").child(user.uid).child("\(user.uid)+\(currentTimeStampInSecond).jpg")
         
         // ファイルをアップロード
-   
+        
         storageRef.putData(image, metadata: nil) { (metadate, error) in
             //errorがあったら
             if error != nil {
@@ -203,42 +222,251 @@ class PickColorViewController: UIViewController, CLLocationManagerDelegate {
 
 
 extension UIImage {
-    func convertImageToBase64(image: UIImage) -> String? {
-        let imageData = image.jpegData(compressionQuality: 0.5)
-        return imageData?.base64EncodedString(options:Data.Base64EncodingOptions.lineLength64Characters)
+    var pixelWidth: Int {
+        return cgImage?.width ?? 0
     }
     
-    func getColor(pos: CGPoint) -> String? {
-        let pixelDataByteSize = 4
-        
-        guard let cgImage = self.cgImage else { return nil }
-        let pixelData = cgImage.dataProvider!.data
-        
-        let data : UnsafePointer = CFDataGetBytePtr(pixelData)
-        let scale = UIScreen.main.scale
-        let address : Int = ((Int(self.size.width) * Int(pos.y * scale)) + Int(pos.x * scale)) * pixelDataByteSize
-        let r = CGFloat(data[address])
-        let g = CGFloat(data[address+1])
-        let b = CGFloat(data[address+2])
-        let a = CGFloat(data[address+3])
-        print(UIColor(red: r/255, green: g/255, blue: b/255, alpha: a/255))
-        print("🍙")
-        //カラーコードで表示
-        print("#"+String(NSString(format: "%02x%02x%02x", Int(r),Int(g),Int(b))))
-        return String(NSString(format: "%02x%02x%02x", Int(r),Int(g),Int(b)))
+    var pixelHeight: Int {
+        return cgImage?.height ?? 0
     }
     
-    func hex(string: String, alpha: CGFloat) -> UIColor {
-        let string_ = string.replacingOccurrences(of: "#", with: "")
-        let scanner = Scanner(string: string_ as String)
-        var color: UInt32 = 0
-        if scanner.scanHexInt32(&color) {
-            let r = CGFloat((color & 0xFF0000) >> 16) / 255.0
-            let g = CGFloat((color & 0x00FF00) >> 8) / 255.0
-            let b = CGFloat(color & 0x0000FF) / 255.0
-            return UIColor(red:r,green:g,blue:b,alpha:alpha)
-        } else {
-            return UIColor.white
+    func pixelColor(x: Int, y: Int) -> UIColor {
+        assert(
+            0 ..< pixelWidth ~= x && 0 ..< pixelHeight ~= y,
+            "Pixel coordinates are out of bounds"
+        )
+        
+        guard
+            let cgImage = cgImage,
+            let data = cgImage.dataProvider?.data,
+            let dataPtr = CFDataGetBytePtr(data),
+            let colorSpaceModel = cgImage.colorSpace?.model,
+            let componentLayout = cgImage.bitmapInfo.componentLayout
+        else {
+            assertionFailure("Could not get a pixel of an image")
+            return .clear
         }
+        
+        assert(
+            colorSpaceModel == .rgb,
+            "The only supported color space model is RGB"
+        )
+        assert(
+            cgImage.bitsPerPixel == 32 || cgImage.bitsPerPixel == 24,
+            "A pixel is expected to be either 4 or 3 bytes in size"
+        )
+        
+        let bytesPerRow = cgImage.bytesPerRow
+        let bytesPerPixel = cgImage.bitsPerPixel / 8
+        let pixelOffset = y * bytesPerRow + x * bytesPerPixel
+        
+        if componentLayout.count == 4 {
+            let components = (
+                dataPtr[pixelOffset + 0],
+                dataPtr[pixelOffset + 1],
+                dataPtr[pixelOffset + 2],
+                dataPtr[pixelOffset + 3]
+            )
+            
+            var alpha: UInt8 = 0
+            var red: UInt8 = 0
+            var green: UInt8 = 0
+            var blue: UInt8 = 0
+            
+            switch componentLayout {
+            case .bgra:
+                alpha = components.3
+                red = components.2
+                green = components.1
+                blue = components.0
+            case .abgr:
+                alpha = components.0
+                red = components.3
+                green = components.2
+                blue = components.1
+            case .argb:
+                alpha = components.0
+                red = components.1
+                green = components.2
+                blue = components.3
+            case .rgba:
+                alpha = components.3
+                red = components.0
+                green = components.1
+                blue = components.2
+            default:
+                return .clear
+            }
+            
+            /// If chroma components are premultiplied by alpha and the alpha is `0`,
+            /// keep the chroma components to their current values.
+            if cgImage.bitmapInfo.chromaIsPremultipliedByAlpha, alpha != 0 {
+                let invisibleUnitAlpha = 255 / CGFloat(alpha)
+                red = UInt8((CGFloat(red) * invisibleUnitAlpha).rounded())
+                green = UInt8((CGFloat(green) * invisibleUnitAlpha).rounded())
+                blue = UInt8((CGFloat(blue) * invisibleUnitAlpha).rounded())
+            }
+            
+            return .init(red: red, green: green, blue: blue, alpha: alpha)
+            
+        } else if componentLayout.count == 3 {
+            let components = (
+                dataPtr[pixelOffset + 0],
+                dataPtr[pixelOffset + 1],
+                dataPtr[pixelOffset + 2]
+            )
+            
+            var red: UInt8 = 0
+            var green: UInt8 = 0
+            var blue: UInt8 = 0
+            
+            switch componentLayout {
+            case .bgr:
+                red = components.2
+                green = components.1
+                blue = components.0
+            case .rgb:
+                red = components.0
+                green = components.1
+                blue = components.2
+            default:
+                return .clear
+            }
+            
+            return .init(red: red, green: green, blue: blue, alpha: UInt8(255))
+            
+        } else {
+            assertionFailure("Unsupported number of pixel components")
+            return .clear
+        }
+    }
+}
+
+public extension UIColor {
+    convenience init(red: UInt8, green: UInt8, blue: UInt8, alpha: UInt8) {
+        self.init(
+            red: CGFloat(red) / 255,
+            green: CGFloat(green) / 255,
+            blue: CGFloat(blue) / 255,
+            alpha: CGFloat(alpha) / 255
+        )
+    }
+}
+
+public extension CGBitmapInfo {
+    enum ComponentLayout {
+        case bgra
+        case abgr
+        case argb
+        case rgba
+        case bgr
+        case rgb
+        
+        var count: Int {
+            switch self {
+            case .bgr, .rgb: return 3
+            default: return 4
+            }
+        }
+    }
+    
+    var componentLayout: ComponentLayout? {
+        guard let alphaInfo = CGImageAlphaInfo(rawValue: rawValue & Self.alphaInfoMask.rawValue) else { return nil }
+        let isLittleEndian = contains(.byteOrder32Little)
+        
+        if alphaInfo == .none {
+            return isLittleEndian ? .bgr : .rgb
+        }
+        let alphaIsFirst = alphaInfo == .premultipliedFirst || alphaInfo == .first || alphaInfo == .noneSkipFirst
+        
+        if isLittleEndian {
+            return alphaIsFirst ? .bgra : .abgr
+        } else {
+            return alphaIsFirst ? .argb : .rgba
+        }
+    }
+    
+    var chromaIsPremultipliedByAlpha: Bool {
+        let alphaInfo = CGImageAlphaInfo(rawValue: rawValue & Self.alphaInfoMask.rawValue)
+        return alphaInfo == .premultipliedFirst || alphaInfo == .premultipliedLast
+    }
+}
+    
+    
+    //ここからした昔
+//    func getColor(pos: CGPoint) -> String? {
+//        print(pos)
+//        let pixelDataByteSize = 4
+//        //        guard let cgImage = self.cgImage else { return nil }
+//        //        let pixelData = cgImage.dataProvider!.data
+//        //
+//        //        let data : UnsafePointer = CFDataGetBytePtr(pixelData)
+//        //        let scale = UIScreen.main.scale
+//        //        let address : Int = ((Int(self.size.width) * Int(pos.y * scale)) + Int(pos.x * scale)) * pixelDataByteSize
+//        //        let r = CGFloat(data[address])
+//        //        let g = CGFloat(data[address+1])
+//        //        let b = CGFloat(data[address+2])
+//        //        let a = CGFloat(data[address+3])
+//        //        print(UIColor(red: r/255, green: g/255, blue: b/255, alpha: a/255))
+//        //        print("🍙")
+//        //        //カラーコードで表示
+//        //        print("#"+String(NSString(format: "%02x%02x%02x", Int(r),Int(g),Int(b))))
+//
+//        guard let imageData = cgImage?.dataProvider?.data else { return nil }
+//        let data : UnsafePointer = CFDataGetBytePtr(imageData)
+//        let scale = UIScreen.main.scale
+//        let address : Int = ((Int(size.width) * Int(pos.y * scale)) + Int(pos.x * scale)) * pixelDataByteSize
+//        let r = CGFloat(data[address])
+//        let g = CGFloat(data[address+1])
+//        let b = CGFloat(data[address+2])
+//        return String(NSString(format: "%02x%02x%02x", Int(r),Int(g),Int(b)))
+//    }
+
+
+
+
+extension UIColor {
+    
+    func red() -> String {
+        var redValue: CGFloat = 0
+        self.getRed(&redValue, green: nil, blue: nil, alpha: nil)
+        return String(Int(redValue * 255))
+    }
+    
+    func green() -> String {
+        var greenValue: CGFloat = 0
+        self.getRed(nil, green: &greenValue, blue: nil, alpha: nil)
+        return String(Int(greenValue * 255))
+    }
+    
+    func blue() -> String {
+        var blueValue: CGFloat = 0
+        self.getRed(nil, green: nil, blue: &blueValue, alpha: nil)
+        return String(Int(blueValue * 255))
+    }
+    
+}
+
+extension UIView {
+    func colorOfPoint(point: CGPoint) -> UIColor {
+        let colorSpace: CGColorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+
+        var pixelData: [UInt8] = [0, 0, 0, 0]
+
+        let context = CGContext(data: &pixelData, width: 1, height: 1, bitsPerComponent: 8, bytesPerRow: 4, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
+
+        context!.translateBy(x: -point.x, y: -point.y)
+
+        self.layer.render(in: context!)
+
+        let red: CGFloat = CGFloat(pixelData[0]) / CGFloat(255.0)
+        let green: CGFloat = CGFloat(pixelData[1]) / CGFloat(255.0)
+        let blue: CGFloat = CGFloat(pixelData[2]) / CGFloat(255.0)
+        let alpha: CGFloat = CGFloat(pixelData[3]) / CGFloat(255.0)
+
+        let color: UIColor = UIColor(red: red, green: green, blue: blue, alpha: alpha)
+
+        return color
     }
 }

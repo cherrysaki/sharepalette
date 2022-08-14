@@ -105,8 +105,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         let color = UIColor.hex(string: data["color"] as! String, alpha: 1.0)
         print(data["color"] as! String)
         let label = UILabel(frame: CGRect(x:0.0, y:0.0, width:20.0, height:20.0))
-        let markerView = UIView(frame: CGRect(x:0.0, y:0.0, width:20.0, height:20.0))
-        markerView.layer.cornerRadius = 10.0
+        let markerView = UIView(frame: CGRect(x:0.0, y:0.0, width:30.0, height:30.0))
+        markerView.layer.cornerRadius = 15.0
         markerView.layer.borderWidth = 5.0
         markerView.layer.borderColor = color.cgColor
         markerView.backgroundColor = .white
@@ -116,14 +116,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         marker.accessibilityRespondsToUserInteraction = true
-        marker.iconView = markerView
+        marker.icon = GMSMarker.markerImage(with: color, center: .white)
+//        marker.iconView = markerView
+        marker.icon?.accessibilityIdentifier = id
         marker.map = mapView
         
         return marker
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        let data = dataList[marker.iconView!.accessibilityIdentifier ?? ""] as! Dictionary<String, Any>
+        let data = dataList[marker.icon!.accessibilityIdentifier ?? ""] as! Dictionary<String, Any>
         let url = URL(string: data["image"] as! String)
         let d = NSData(contentsOf: url!)
         image = UIImage(data: d! as Data)!
