@@ -45,6 +45,8 @@ class PickColorViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         imageView.image = image
         imageView.layer.cornerRadius = 10
+        
+        saveButton.tintColor = UIColor.systemBlue
     }
     
     //imageviewをタップした時に色を判別
@@ -55,28 +57,24 @@ class PickColorViewController: UIViewController, CLLocationManagerDelegate {
         
         tappedAreaView.backgroundColor = .red
         
-//        self.imageView.addSubview(tappedAreaView)
+        //        self.imageView.addSubview(tappedAreaView)
         
         guard imageView.image != nil else {return}
         
         //タップした座標の取得
         tapPoint = sender.location(in: imageView)
         var pixelColor = (imageView.image?.pixelColor(x: Int(tapPoint.x), y: Int(tapPoint.y)))
-//        print(pixelColor?.red())
-//        print(pixelColor?.green())
-//        print(pixelColor?.blue())
-//        print("-------")
+        
         
         pixelColor = imageView.colorOfPoint(point: sender.location(in: imageView))
-
-//        colorCode = String(NSString(format: "%02x%02x%02x", Int(pixelColor.re),Int(pixelColor.green()),Int(pixelColor.blue())))
         
-//        colorCode = (imageView.image?.getColor(pos: tapPoint))!
         colorView.backgroundColor = pixelColor
-//        colorView.backgroundColor = UIColor.hex(string: colorCode, alpha: 1.0)
+        colorCode = UIColor.toHexString(pixelColor!)()
+        print(colorCode)
         colorView.layer.cornerRadius = 35
-//        ColorCodeLabel.text = "#" + String(colorCode)
-//        RGBLabel.text = "R:\(UIColor.hex(string: colorCode, alpha: 1).red()) " + "G:\(UIColor.hex(string: colorCode, alpha: 1).green()) " + "B:\(UIColor.hex(string: colorCode, alpha: 1).blue())"
+        ColorCodeLabel.text = "#" + String(colorCode)
+        RGBLabel.text = "R:\(UIColor.hex(string: colorCode, alpha: 1).red()) " + "G:\(UIColor.hex(string: colorCode, alpha: 1).green()) " + "B:\(UIColor.hex(string: colorCode, alpha: 1).blue())"
+        
         
         
     }
@@ -102,6 +100,11 @@ class PickColorViewController: UIViewController, CLLocationManagerDelegate {
                 self.postColorData(user: user, imageUrlString: url)
                 DispatchQueue.main.async {
                     loadingView.removeFromSuperview()
+                    
+                    self.navigationController?.popToRootViewController(animated: true)
+                    
+                    let previousViewController = self.tabBarController?.viewControllers?[0]
+                    self.tabBarController?.selectedViewController = previousViewController
                 }
                 print("complete!")
             }
@@ -351,6 +354,34 @@ public extension UIColor {
             alpha: CGFloat(alpha) / 255
         )
     }
+    
+    func toHexString() -> String {
+        var red: CGFloat     = 1.0
+        var green: CGFloat   = 1.0
+        var blue: CGFloat    = 1.0
+        var alpha: CGFloat   = 1.0
+        self.getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+        
+        let r = Int(String(Int(floor(red*100)/100 * 255)).replacingOccurrences(of: "-", with: ""))!
+        let g = Int(String(Int(floor(green*100)/100 * 255)).replacingOccurrences(of: "-", with: ""))!
+        let b = Int(String(Int(floor(blue*100)/100 * 255)).replacingOccurrences(of: "-", with: ""))!
+        
+        let result = String(r, radix: 16).leftPadding(toLength: 2, withPad: "0") + String(g, radix: 16).leftPadding(toLength: 2, withPad: "0") + String(b, radix: 16).leftPadding(toLength: 2, withPad: "0")
+        return result
+    }
+}
+
+
+extension String {
+    // 左から文字埋めする
+    func leftPadding(toLength: Int, withPad character: Character) -> String {
+        let stringLength = self.count
+        if stringLength < toLength {
+            return String(repeatElement(character, count: toLength - stringLength)) + self
+        } else {
+            return String(self.suffix(toLength))
+        }
+    }
 }
 
 public extension CGBitmapInfo {
@@ -391,39 +422,6 @@ public extension CGBitmapInfo {
         return alphaInfo == .premultipliedFirst || alphaInfo == .premultipliedLast
     }
 }
-    
-    
-    //ここからした昔
-//    func getColor(pos: CGPoint) -> String? {
-//        print(pos)
-//        let pixelDataByteSize = 4
-//        //        guard let cgImage = self.cgImage else { return nil }
-//        //        let pixelData = cgImage.dataProvider!.data
-//        //
-//        //        let data : UnsafePointer = CFDataGetBytePtr(pixelData)
-//        //        let scale = UIScreen.main.scale
-//        //        let address : Int = ((Int(self.size.width) * Int(pos.y * scale)) + Int(pos.x * scale)) * pixelDataByteSize
-//        //        let r = CGFloat(data[address])
-//        //        let g = CGFloat(data[address+1])
-//        //        let b = CGFloat(data[address+2])
-//        //        let a = CGFloat(data[address+3])
-//        //        print(UIColor(red: r/255, green: g/255, blue: b/255, alpha: a/255))
-//        //        print("🍙")
-//        //        //カラーコードで表示
-//        //        print("#"+String(NSString(format: "%02x%02x%02x", Int(r),Int(g),Int(b))))
-//
-//        guard let imageData = cgImage?.dataProvider?.data else { return nil }
-//        let data : UnsafePointer = CFDataGetBytePtr(imageData)
-//        let scale = UIScreen.main.scale
-//        let address : Int = ((Int(size.width) * Int(pos.y * scale)) + Int(pos.x * scale)) * pixelDataByteSize
-//        let r = CGFloat(data[address])
-//        let g = CGFloat(data[address+1])
-//        let b = CGFloat(data[address+2])
-//        return String(NSString(format: "%02x%02x%02x", Int(r),Int(g),Int(b)))
-//    }
-
-
-
 
 extension UIColor {
     
@@ -451,22 +449,22 @@ extension UIView {
     func colorOfPoint(point: CGPoint) -> UIColor {
         let colorSpace: CGColorSpace = CGColorSpaceCreateDeviceRGB()
         let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
-
+        
         var pixelData: [UInt8] = [0, 0, 0, 0]
-
+        
         let context = CGContext(data: &pixelData, width: 1, height: 1, bitsPerComponent: 8, bytesPerRow: 4, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
-
+        
         context!.translateBy(x: -point.x, y: -point.y)
-
+        
         self.layer.render(in: context!)
-
+        
         let red: CGFloat = CGFloat(pixelData[0]) / CGFloat(255.0)
         let green: CGFloat = CGFloat(pixelData[1]) / CGFloat(255.0)
         let blue: CGFloat = CGFloat(pixelData[2]) / CGFloat(255.0)
         let alpha: CGFloat = CGFloat(pixelData[3]) / CGFloat(255.0)
-
+        
         let color: UIColor = UIColor(red: red, green: green, blue: blue, alpha: alpha)
-
+        
         return color
     }
 }

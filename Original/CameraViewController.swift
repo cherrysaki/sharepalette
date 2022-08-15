@@ -40,26 +40,8 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     override func viewDidLoad() {
         super.viewDidLoad()
         // アプリの使用中に位置情報サービスを使用する許可をリクエストする
-        
     }
-    
-    @IBAction func takePhoto(){
-        //カメラを起動する
-        if UIImagePickerController.isSourceTypeAvailable(.camera){
-            
-            let picker = UIImagePickerController()
-            picker.sourceType = .camera
-            picker.delegate = self
-            
-            picker.allowsEditing = true
-            
-            present(picker, animated: true,completion: nil)
-            
-        }else{
-            print("error")
-        }
-        
-    }
+
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         isCancelled = true
@@ -90,9 +72,10 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        segueのIDを確認して特定のsegueの時のみ動作させる
+        //        segueのIDを確認して特定のsegueの時のみ動作させる
         if segue.identifier == "photoConfirm" {
-            //            //遷移先のViewControllerを獲得
+            isCancelled = true
+            //遷移先のViewControllerを獲得
             let PickColorViewController: PickColorViewController = segue.destination as! PickColorViewController
             
             //遷移先の変数に値を渡す

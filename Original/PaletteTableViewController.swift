@@ -19,6 +19,7 @@ class PaletteTableViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
+    
     var colorCodeArray: [String] = []{
         didSet {
             tableView.reloadData()
@@ -82,7 +83,14 @@ class PaletteTableViewController: UIViewController, UITableViewDelegate, UITable
         
         // セルに表示する値を設定する
         cell.colorView.backgroundColor = colorArray[indexPath.row]
+        cell.View.layer.cornerRadius = 3
+        cell.View.layer.cornerRadius = 30
+        cell.View.layer.shadowColor = UIColor.black.cgColor //影の色を決める
+        cell.View.layer.shadowOpacity = 0.25//影の色の透明度
+        cell.View.layer.shadowRadius = 4 //影のぼかし
+        cell.View.layer.shadowOffset = CGSize(width: 0, height: 4)
         cell.label.text = "#" + colorCodeArray[indexPath.row]
+        cell.RGBlabel.text = "R:\(UIColor.hex(string: colorCodeArray[indexPath.row], alpha: 1).red()) " + "G:\(UIColor.hex(string: colorCodeArray[indexPath.row], alpha: 1).green()) " + "B:\(UIColor.hex(string: colorCodeArray[indexPath.row], alpha: 1).blue())"
         
         return cell
     }
@@ -103,4 +111,5 @@ extension UIColor {
             return UIColor.white
         }
     }
+    
 }

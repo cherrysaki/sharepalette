@@ -9,7 +9,7 @@ import UIKit
 
 class UINavigationController: UIViewController {
 
-    
+    var navigationBar: UINavigationBar
     
     override func viewDidLoad() {
         super.viewDidLoad()
