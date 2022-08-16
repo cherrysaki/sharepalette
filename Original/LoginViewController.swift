@@ -70,7 +70,6 @@ class LoginViewController: UIViewController, UITextFieldDelegate {
     }
     
     
-    
     //@IBAction func tapLoginButton(_ sender: Any) {
     @IBAction func tapLoginButton(_ sender: Any){
         if let email = loginEmailTextField.text,

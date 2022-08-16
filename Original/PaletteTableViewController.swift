@@ -45,7 +45,7 @@ class PaletteTableViewController: UIViewController, UITableViewDelegate, UITable
         getFirebasedocuments()
     }
     
- 
+    
     
     
     func getFirebasedocuments() {
@@ -83,8 +83,7 @@ class PaletteTableViewController: UIViewController, UITableViewDelegate, UITable
         
         // セルに表示する値を設定する
         cell.colorView.backgroundColor = colorArray[indexPath.row]
-        cell.View.layer.cornerRadius = 3
-        cell.View.layer.cornerRadius = 30
+        cell.View.layer.cornerRadius = 15
         cell.View.layer.shadowColor = UIColor.black.cgColor //影の色を決める
         cell.View.layer.shadowOpacity = 0.25//影の色の透明度
         cell.View.layer.shadowRadius = 4 //影のぼかし

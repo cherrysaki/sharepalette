@@ -25,11 +25,15 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var image: UIImage = UIImage()
     var color: UIColor = UIColor()
     var colorCode: String = ""
+    var date: String = ""
+    var lat = CLLocationDegrees()
+    var lon = CLLocationDegrees()
+    
     
     var dataList: Dictionary<String, Any> = [:]
     var markers: Dictionary<String, GMSMarker> = [:]
     var isMyLocation = true
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -117,7 +121,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         marker.accessibilityRespondsToUserInteraction = true
         marker.icon = GMSMarker.markerImage(with: color, center: .white)
-//        marker.iconView = markerView
+        //        marker.iconView = markerView
         marker.icon?.accessibilityIdentifier = id
         marker.map = mapView
         
@@ -128,9 +132,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         let data = dataList[marker.icon!.accessibilityIdentifier ?? ""] as! Dictionary<String, Any>
         let url = URL(string: data["image"] as! String)
         let d = NSData(contentsOf: url!)
+        lat = data["lat"] as! Double
+        lon = data["lon"] as! Double
         image = UIImage(data: d! as Data)!
         color = UIColor.hex(string: data["color"] as! String, alpha: 1.0)
         colorCode = "#\(data["color"] as! String)"
+        
         print("onClick")
         print(color)
         print(image)
@@ -140,12 +147,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         return true
     }
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toDetailVC" {
             let detailVC = segue.destination as? DetailViewController
             detailVC?.image = self.image
             detailVC?.color = self.color
             detailVC?.colorCode = self.colorCode
+            detailVC?.lat = lat
+            detailVC?.lon = lon
+
         }
     }
     

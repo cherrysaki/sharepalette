@@ -41,7 +41,7 @@ class CameraViewController: UIViewController,UIImagePickerControllerDelegate,UIN
         super.viewDidLoad()
         // アプリの使用中に位置情報サービスを使用する許可をリクエストする
     }
-
+    
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         isCancelled = true
