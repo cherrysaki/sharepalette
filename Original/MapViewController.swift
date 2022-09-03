@@ -25,9 +25,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var image: UIImage = UIImage()
     var color: UIColor = UIColor()
     var colorCode: String = ""
+    var timeStamp = Timestamp()
     var date: String = ""
     var lat = CLLocationDegrees()
     var lon = CLLocationDegrees()
+    var index = 0
     
     
     var dataList: Dictionary<String, Any> = [:]
@@ -121,9 +123,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         marker.accessibilityRespondsToUserInteraction = true
         marker.icon = GMSMarker.markerImage(with: color, center: .white)
-        //        marker.iconView = markerView
+//        marker.iconView = markerView
         marker.icon?.accessibilityIdentifier = id
         marker.map = mapView
+        marker.zIndex = Int32(index + 1)
         
         return marker
     }
@@ -137,7 +140,13 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         image = UIImage(data: d! as Data)!
         color = UIColor.hex(string: data["color"] as! String, alpha: 1.0)
         colorCode = "#\(data["color"] as! String)"
-        
+        timeStamp = data["date"] as! Timestamp
+        let dates: Date = timeStamp.dateValue()
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "ja_JP")
+        dateFormatter.dateStyle = .medium
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        date = dateFormatter.string(from: dates)
         print("onClick")
         print(color)
         print(image)
@@ -156,7 +165,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             detailVC?.colorCode = self.colorCode
             detailVC?.lat = lat
             detailVC?.lon = lon
-
+            detailVC?.date = date
+            
         }
     }
     

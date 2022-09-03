@@ -13,3 +13,4 @@ class TabBarViewController: UITabBarController {
         super.viewDidLoad()
         UITabBar.appearance().tintColor = UIColor(red: 249 / 255, green: 114/255, blue: 114/255, alpha: 1.0)
     }
+}

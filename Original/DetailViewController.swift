@@ -15,29 +15,29 @@ class DetailViewController: UIViewController {
     @IBOutlet var colorLabel: UILabel!
     @IBOutlet var dateLabel: UILabel!
     @IBOutlet var addressLabel: UILabel!
-    
-    let text = [ "国名", "郵便番号", "都道府県", "郡", "市区町村", "丁番なしの地名", "地名", "番地" ]
-    var location: [ UILabel ] = []
+    @IBOutlet var RGBColorLabel: UILabel!
+   
+
     var lat = CLLocationDegrees()
     var lon = CLLocationDegrees()
     var addressString = ""
-    
-    
+    var date: String = ""
     var image: UIImage = UIImage()
     var color: UIColor = UIColor()
     var colorCode: String = ""
-    var date: String = ""
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         imageView.image = image
+        imageView.layer.cornerRadius = 10
         colorView.backgroundColor = color
         colorLabel.text = colorCode
+        RGBColorLabel.text = "R:\(UIColor.hex(string: colorCode, alpha: 1).red()) " + "G:\(UIColor.hex(string: colorCode, alpha: 1).green()) " + "B:\(UIColor.hex(string: colorCode, alpha: 1).blue())"
+        dateLabel.text = date
         convert(lat: lat, lon: lon)
     }
-    
-    
+
     func convert(lat: CLLocationDegrees, lon: CLLocationDegrees) {
         let geocorder = CLGeocoder()
         let location = CLLocation(latitude: lat, longitude: lon)

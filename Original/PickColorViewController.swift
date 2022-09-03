@@ -51,14 +51,7 @@ class PickColorViewController: UIViewController, CLLocationManagerDelegate {
     
     //imageviewをタップした時に色を判別
     @IBAction func getImageRGB(_ sender: UITapGestureRecognizer) {
-        
-        //tapした場所に赤い四角を置いてみる
-        let tappedAreaView = UIView(frame: CGRect(origin: sender.location(in: imageView), size: CGSize(width: 4, height: 4)))
-        
-        tappedAreaView.backgroundColor = .red
-        
-        //        self.imageView.addSubview(tappedAreaView)
-        
+ 
         guard imageView.image != nil else {return}
         
         //タップした座標の取得
