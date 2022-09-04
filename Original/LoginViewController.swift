@@ -61,19 +61,19 @@ class LoginViewController: UIViewController, UITextFieldDelegate,UIScrollViewDel
                    object: self.view.window)
        }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        print("viewDidAppear")
-        if let user = Auth.auth().currentUser {
-            print("user: \(user.uid)")
-
-            let storyboard = self.storyboard?.instantiateViewController(withIdentifier: "TabBarViewController") as!TabBarViewController
-            self.present(storyboard, animated: true, completion: nil)
-
-        }
-    }
-    
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//
+//        print("viewDidAppear")
+//        if let user = Auth.auth().currentUser {
+//            print("user: \(user.uid)")
+//
+//            let storyboard = self.storyboard?.instantiateViewController(withIdentifier: "TabBarViewController") as!TabBarViewController
+//            self.present(storyboard, animated: true, completion: nil)
+//
+//        }
+//    }
+//
     @objc func keyboardWillShow(_ notification: Notification) {
         let info = notification.userInfo!
         
@@ -84,7 +84,7 @@ class LoginViewController: UIViewController, UITextFieldDelegate,UIScrollViewDel
         // top of keyboard
         let topKeyboard = screenHeight - keyboardFrame.size.height
         // 重なり
-        let distance = bottomTextField - topKeyboard
+        let distance = topKeyboard - bottomTextField
         
         if distance >= 0 {
             // scrollViewのコンテツを上へオフセット + 50.0(追加のオフセット)

@@ -122,9 +122,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: lat, longitude: lon)
         marker.accessibilityRespondsToUserInteraction = true
-        marker.icon = GMSMarker.markerImage(with: color, center: .white)
-//        marker.iconView = markerView
-        marker.icon?.accessibilityIdentifier = id
+//        marker.icon = GMSMarker.markerImage(with: color, center: .white)
+        marker.iconView = markerView
+//        marker.icon?.accessibilityIdentifier = id
         marker.map = mapView
         marker.zIndex = Int32(index + 1)
         
@@ -132,7 +132,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-        let data = dataList[marker.icon!.accessibilityIdentifier ?? ""] as! Dictionary<String, Any>
+        let data = dataList[marker.iconView!.accessibilityIdentifier ?? ""] as! Dictionary<String, Any>
         let url = URL(string: data["image"] as! String)
         let d = NSData(contentsOf: url!)
         lat = data["lat"] as! Double
